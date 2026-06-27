@@ -1,0 +1,16 @@
+.copa {
+    margin: 10px;
+    background-color: rgba(0, 213, 255, 0.506);
+}
+.card {
+    margin: 40px;
+    border: none;
+}
+.btn {
+    border: none;
+    background-color: black;
+}
+
+span {
+    font-size: 30px;
+}

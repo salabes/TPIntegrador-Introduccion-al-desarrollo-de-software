@@ -1,0 +1,133 @@
+/* ============================================================
+   Carta de jugador estilo FIFA / FUT
+   Se usa en formacion-equipo y en jugador/agregar.
+   ============================================================ */
+
+.fut {
+    width: 180px;
+    border-radius: 14px;
+    padding: 16px 14px 12px;
+    position: relative;
+    text-align: center;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    overflow: hidden;
+}
+
+/* Brillo diagonal */
+.fut::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: -30%;
+    width: 80%;
+    height: 180%;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
+    transform: rotate(20deg);
+    pointer-events: none;
+}
+
+/* Tiers segun puntaje */
+.fut--elite  { background: linear-gradient(160deg, #4a4636 0%, #2a271f 55%, #16140f 100%); color: #f3d98b; }
+.fut--gold   { background: linear-gradient(160deg, #f7e58c 0%, #d9b441 50%, #b78f2f 100%); color: #4a3a12; }
+.fut--silver { background: linear-gradient(160deg, #eef0f2 0%, #c2c7cd 50%, #9aa0a8 100%); color: #2f3338; }
+.fut--bronze { background: linear-gradient(160deg, #ecbd92 0%, #c8824f 50%, #9a5e35 100%); color: #3d2615; }
+
+.fut__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+}
+
+.fut__rating {
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 0.85;
+}
+
+.fut__pos {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+}
+
+.fut__pie {
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+    opacity: 0.9;
+}
+
+.fut__pie small {
+    display: block;
+    font-size: 9px;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+.fut__photo {
+    width: 104px;
+    height: 104px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 6px auto 8px;
+    border: 3px solid rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.18);
+    position: relative;
+    z-index: 1;
+}
+
+.fut__name {
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    border-top: 1px solid rgba(0, 0, 0, 0.25);
+    padding-top: 7px;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fut__stats {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 6px;
+    position: relative;
+    z-index: 1;
+}
+
+.fut__stat {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: 0.8;
+    line-height: 1.1;
+}
+
+.fut__stat b {
+    display: block;
+    font-size: 15px;
+    font-weight: 800;
+    opacity: 1;
+}
+
+/* Botones debajo de la carta */
+.fut-acciones {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.fut-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

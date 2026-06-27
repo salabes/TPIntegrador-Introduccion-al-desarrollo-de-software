@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Jugador</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        label {
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+<body data-bs-theme="dark">
+    <div class="row">
+        <div class="col-12 col-md-10 col-lg-6 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="text-white text-center">Crea tu propio jugador</h1>
+                    <form onsubmit="crearJugador(event)">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="nombre" 
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control"name="apellido"
+                                required>
+                        </div>
+                        <label for="posicion">Posicion</label>
+                        <select class="form-select" name="posicion" required>
+                            <option value="1">Arq</option>
+                            <option value="4">Li</option>
+                            <option value="2">Ld</option>
+                            <option value="3">Dfc</option>
+                            <option value="6">Mc</option>
+                            <option value="5">Md</option>
+                            <option value="7">Mi</option>
+                            <option value="8">Dc</option>
+                        </select>
+                        <div class="mb-3">
+                            <label for="pierna habil" class="form-label">Pierna habil</label>
+                            <input type="text" class="form-control" name="pierna habil"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edad" class="form-label">Edad</label>
+                            <input type="number" class="form-control" name="edad"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="puntaje" class="form-label">Puntaje (0 a 100)</label>
+                            <input type="number" class="form-control" name="puntaje"
+                                min="0" max="100">
+                        </div>
+                        <div class="mb-3">
+                            <label for="imagen" class="form-label">Imagen (URL)</label>
+                            <input type="url" class="form-control" name="imagen"
+                                placeholder="https://...">
+                        </div>
+                        <button type="submit" class="btn btn-success">Crear</button>
+                    </form>            
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous">
+    </script>
+    <script>
+        
+        const params = new URLSearchParams(window.location.search)
+        const idEquipo = params.get("id-equipo")
+
+        function responseRecibida(data){
+            return data.json()
+        }
+
+        function manejoResponse(data) {
+            if (data.error) {
+                alert(data.error)
+            } else {
+                alert("Jugador creado")
+                window.location.href = `/formacion-equipo?id-equipo=${idEquipo}`
+            }
+        }
+
+        function errorRequest(error) {
+            console.log("ERROR", error)
+        }
+
+        function crearJugador(event) {
+            event.preventDefault()
+
+            const formData = new FormData(event.target)
+
+            const nombre = formData.get("nombre")
+            const apellido = formData.get("apellido")
+            const posicion = formData.get("posicion")
+            const piernaHabil = formData.get("pierna habil")
+            const edad = formData.get("edad")
+            const puntaje = formData.get("puntaje")
+            const imagen = formData.get("imagen")
+
+
+            fetch(`http://localhost:5000/equipos/${idEquipo}/jugadores` , {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    apellido: apellido,
+                    posicion_id: parseInt(posicion),
+                    pierna_habil: piernaHabil,
+                    edad: parseInt(edad),
+                    puntaje: puntaje ? parseInt(puntaje) : null,
+                    imagen: imagen || null
+                })
+            })
+                .then(responseRecibida)
+                .then(manejoResponse)
+                .catch(errorRequest)
+        }
+    </script>
+</body>
